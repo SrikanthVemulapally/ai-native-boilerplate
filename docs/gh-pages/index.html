@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Native Boilerplate — Discipline Layer for AI Coding Agents</title>
+  <meta name="description" content="A production-grade boilerplate that keeps Claude Code and AI coding agents disciplined, consistent, and on-track. 170+ rules, 6 layers, configurable for any stack." />
+  <meta name="keywords" content="claude code boilerplate, ai native development, ai coding discipline, saas boilerplate, design system, claude md, ai agents, typescript, cloudflare, tauri" />
+  <meta name="author" content="Srikanth Vemulapally" />
+  <link rel="canonical" href="https://srikanthvemulapally.github.io/ai-native-boilerplate/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://srikanthvemulapally.github.io/ai-native-boilerplate/" />
+  <meta property="og:title" content="AI-Native Boilerplate — Discipline Layer for AI Coding Agents" />
+  <meta property="og:description" content="170+ rules across 6 layers. Keeps Claude Code disciplined from first commit to production. Configurable, token-efficient, MIT licensed." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/SrikanthVemulapally/ai-native-boilerplate/main/assets/banner.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI-Native Boilerplate — Discipline Layer for AI Coding Agents" />
+  <meta name="twitter:description" content="170+ rules across 6 layers. Keeps Claude Code disciplined from first commit to production." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/SrikanthVemulapally/ai-native-boilerplate/main/assets/banner.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "AI-Native Boilerplate",
+    "description": "A production-grade boilerplate that keeps AI coding agents disciplined, consistent, and on-track from first commit to production.",
+    "url": "https://github.com/SrikanthVemulapally/ai-native-boilerplate",
+    "codeRepository": "https://github.com/SrikanthVemulapally/ai-native-boilerplate",
+    "license": "https://opensource.org/licenses/MIT",
+    "programmingLanguage": ["TypeScript", "JavaScript", "Rust"],
+    "author": {
+      "@type": "Person",
+      "name": "Srikanth Vemulapally"
+    },
+    "keywords": "claude-code, ai-native, boilerplate, design-system, typescript, cloudflare, tauri, saas"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e8f0;
+      --muted: #888899;
+      --primary: #4f8ef7;
+      --primary-glow: rgba(79,142,247,0.15);
+      --green: #3dd68c;
+      --purple: #a78bfa;
+      --orange: #fb923c;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    nav .logo { font-weight: 700; font-size: 15px; color: var(--text); text-decoration: none; }
+    nav .logo span { color: var(--primary); }
+    nav .nav-links { display: flex; gap: 24px; list-style: none; }
+    nav .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--text); }
+    nav .cta { background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; transition: opacity 0.2s; }
+    nav .cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero { max-width: 900px; margin: 0 auto; padding: 96px 24px 80px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-glow); border: 1px solid rgba(79,142,247,0.3); color: var(--primary); padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 500; margin-bottom: 32px; }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; background: var(--primary); border-radius: 50%; display: inline-block; }
+    .hero h1 { font-size: clamp(36px, 6vw, 72px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero h1 .accent { background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: clamp(16px, 2vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+    .btn-primary { background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; transition: all 0.2s; box-shadow: 0 4px 20px rgba(79,142,247,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,142,247,0.4); }
+    .btn-secondary { background: var(--surface); color: var(--text); padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; border: 1px solid var(--border); transition: all 0.2s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); }
+    .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 32px; font-weight: 800; color: var(--text); line-height: 1; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* SOCIAL PROOF TICKER */
+    .ticker { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; overflow: hidden; }
+    .ticker-inner { display: flex; gap: 48px; white-space: nowrap; animation: ticker 20s linear infinite; font-size: 13px; color: var(--muted); }
+    .ticker-item { display: flex; align-items: center; gap: 8px; }
+    .ticker-item .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SECTIONS */
+    section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+    .section-label { font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .section-sub { font-size: 18px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+    /* LAYERS GRID */
+    .layers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 48px; }
+    .layer-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .layer-card:hover { border-color: rgba(79,142,247,0.3); transform: translateY(-2px); }
+    .layer-icon { font-size: 28px; margin-bottom: 16px; }
+    .layer-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .layer-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .layer-count { display: inline-block; background: var(--primary-glow); color: var(--primary); padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-top: 12px; }
+
+    /* COMPARISON TABLE */
+    .comparison { margin-top: 48px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); color: var(--muted); font-weight: 600; font-size: 13px; }
+    td { padding: 14px 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    td:first-child { color: var(--muted); }
+    .check { color: var(--green); font-size: 18px; }
+    .cross { color: #666; font-size: 18px; }
+    .partial { color: var(--orange); font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    th.highlight, td.highlight { background: var(--primary-glow); }
+    th.highlight { color: var(--primary); }
+
+    /* COMMANDS */
+    .commands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 40px; }
+    .command-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .command-chip .cmd { font-size: 13px; color: var(--primary); font-weight: 600; }
+    .command-chip .desc { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+    /* INSTALL */
+    .install-block { background: #0d1117; border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-top: 40px; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .install-block .comment { color: #6e7681; }
+    .install-block .cmd { color: #e8e8f0; }
+    .install-block .prompt { color: var(--green); }
+    .install-line { display: block; line-height: 2; font-size: 14px; }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, rgba(79,142,247,0.1), rgba(167,139,250,0.1)); border: 1px solid rgba(79,142,247,0.2); border-radius: 24px; padding: 64px 40px; text-align: center; }
+    .cta-section h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { color: var(--muted); font-size: 18px; margin-bottom: 32px; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 14px; }
+    footer a { color: var(--primary); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      nav .nav-links { display: none; }
+      .hero-stats { gap: 24px; }
+      .cta-section { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">AI-Native <span>Boilerplate</span></a>
+  <ul class="nav-links">
+    <li><a href="#layers">Layers</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#compare">Compare</a></li>
+    <li><a href="#install">Install</a></li>
+  </ul>
+  <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate" class="cta" target="_blank">⭐ Star on GitHub</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Open Source · MIT License · Free Forever</div>
+  <h1>The <span class="accent">Discipline Layer</span><br/>for AI-Native Development</h1>
+  <p>Keeps Claude Code and AI coding agents disciplined, consistent, and on-track from first commit to production. No more drift. No more guesswork.</p>
+  <div class="hero-actions">
+    <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate" class="btn-primary" target="_blank">⭐ Star on GitHub</a>
+    <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate/blob/main/QUICKSTART.md" class="btn-secondary" target="_blank">Quick Start →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-value">170+</div><div class="stat-label">Rules & Guidelines</div></div>
+    <div class="stat"><div class="stat-value">6</div><div class="stat-label">Architecture Layers</div></div>
+    <div class="stat"><div class="stat-value">25</div><div class="stat-label">Slash Commands</div></div>
+    <div class="stat"><div class="stat-value">16</div><div class="stat-label">Lifecycle Hooks</div></div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="dot"></span> Red Gate / Green Gate TDD enforcement</span>
+    <span class="ticker-item"><span class="dot"></span> GDPR · HIPAA · SOC2 · PCI · EU AI Act compliance</span>
+    <span class="ticker-item"><span class="dot"></span> shadcn/ui + Tailwind design system rules</span>
+    <span class="ticker-item"><span class="dot"></span> Cross-platform: macOS · Windows · Linux · iOS · Android</span>
+    <span class="ticker-item"><span class="dot"></span> Git worktree isolation for parallel AI agents</span>
+    <span class="ticker-item"><span class="dot"></span> 12-Factor App · SOLID · Clean Architecture</span>
+    <span class="ticker-item"><span class="dot"></span> Auto-eval compliance gate</span>
+    <span class="ticker-item"><span class="dot"></span> Token-efficient: minimal mode ~2K tokens</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="dot"></span> Red Gate / Green Gate TDD enforcement</span>
+    <span class="ticker-item"><span class="dot"></span> GDPR · HIPAA · SOC2 · PCI · EU AI Act compliance</span>
+    <span class="ticker-item"><span class="dot"></span> shadcn/ui + Tailwind design system rules</span>
+    <span class="ticker-item"><span class="dot"></span> Cross-platform: macOS · Windows · Linux · iOS · Android</span>
+    <span class="ticker-item"><span class="dot"></span> Git worktree isolation for parallel AI agents</span>
+    <span class="ticker-item"><span class="dot"></span> 12-Factor App · SOLID · Clean Architecture</span>
+    <span class="ticker-item"><span class="dot"></span> Auto-eval compliance gate</span>
+    <span class="ticker-item"><span class="dot"></span> Token-efficient: minimal mode ~2K tokens</span>
+  </div>
+</div>
+
+<section id="layers">
+  <div class="section-label">Architecture</div>
+  <div class="section-title">6 Layers of Discipline</div>
+  <div class="section-sub">Each layer loads only what your project needs. Zero overhead for unused rules.</div>
+  <div class="layers-grid">
+    <div class="layer-card">
+      <div class="layer-icon">⚙️</div>
+      <div class="layer-name">Core</div>
+      <div class="layer-desc">Always loaded. Non-negotiable. MDD workflow, SOLID principles, 12-Factor App, git discipline, testing strategy, conventions, NFRs, deployment.</div>
+      <span class="layer-count">12 rule files</span>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🎨</div>
+      <div class="layer-name">Design System</div>
+      <div class="layer-desc">Complete UI/UX discipline. Tokens, typography, color, components, animation, accessibility, responsive, performance, UX patterns, page types.</div>
+      <span class="layer-count">11 rule files</span>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🔌</div>
+      <div class="layer-name">Features</div>
+      <div class="layer-desc">Enable what you need. Payments, auth, SEO, i18n, timezone, realtime, file uploads, AI evals, auto-update, analytics, email, error tracking.</div>
+      <span class="layer-count">12 rule files</span>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🏗️</div>
+      <div class="layer-name">Stack</div>
+      <div class="layer-desc">Stack-specific discipline. TanStack+Cloudflare, Tauri+Cloudflare, Next.js, monorepo, worktrees. Add your own in 3 steps.</div>
+      <span class="layer-count">4 rule files</span>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🔒</div>
+      <div class="layer-name">Compliance</div>
+      <div class="layer-desc">GDPR, DPDPA, HIPAA, PCI DSS, SOC 2, EU AI Act. Data classification T1–T4. PCI auto-loads when payments are enabled.</div>
+      <span class="layer-count">7 rule files</span>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🛠️</div>
+      <div class="layer-name">Custom</div>
+      <div class="layer-desc">Drop your project-specific rules in rules/custom/. Loads last, always wins. No generator changes needed.</div>
+      <span class="layer-count">Unlimited</span>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="section-label">Comparison</div>
+  <div class="section-title">How we compare</div>
+  <div class="section-sub">Other CLAUDE.md templates are a starting point. This is a complete discipline system.</div>
+  <div class="comparison">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Generic CLAUDE.md</th>
+          <th>Other Starters</th>
+          <th class="highlight">This Boilerplate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Core rules & principles</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>Design system rules</td><td><span class="cross">✗</span></td><td><span class="partial">Partial</span></td><td class="highlight"><span class="check">✓ 11 files</span></td></tr>
+        <tr><td>Compliance (GDPR/HIPAA/SOC2)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ 7 frameworks</span></td></tr>
+        <tr><td>Lifecycle hooks (PreToolUse etc)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ 16 hooks</span></td></tr>
+        <tr><td>Red Gate / Green Gate TDD</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>Auto-eval compliance gate</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>Git worktrees for parallel agents</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>Cross-platform (Win/Mac/Linux)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>i18n + timezone discipline</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+        <tr><td>Configurable per project</td><td><span class="cross">✗</span></td><td><span class="partial">Partial</span></td><td class="highlight"><span class="check">✓ app.config.json</span></td></tr>
+        <tr><td>Token-efficient (minimal mode)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ ~2K tokens</span></td></tr>
+        <tr><td>CI/CD workflows included</td><td><span class="cross">✗</span></td><td><span class="partial">Partial</span></td><td class="highlight"><span class="check">✓ Full pipeline</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="commands">
+  <div class="section-label">Slash Commands</div>
+  <div class="section-title">25 commands. Every phase covered.</div>
+  <div class="section-sub">From first implementation to post-release monitoring. Type them directly in Claude Code.</div>
+  <div class="commands-grid">
+    <div class="command-chip"><div class="cmd">/implement</div><div class="desc">Red Gate TDD → implement → Green Gate</div></div>
+    <div class="command-chip"><div class="cmd">/scaffold</div><div class="desc">Generate file structure from spec</div></div>
+    <div class="command-chip"><div class="cmd">/review</div><div class="desc">Code review against all rules</div></div>
+    <div class="command-chip"><div class="cmd">/test</div><div class="desc">Generate or run tests</div></div>
+    <div class="command-chip"><div class="cmd">/test-plan</div><div class="desc">Comprehensive test strategy</div></div>
+    <div class="command-chip"><div class="cmd">/diagnose</div><div class="desc">Investigate only — no code changes</div></div>
+    <div class="command-chip"><div class="cmd">/debug</div><div class="desc">Diagnose + fix with root cause</div></div>
+    <div class="command-chip"><div class="cmd">/refactor</div><div class="desc">File-level complexity audit + fix</div></div>
+    <div class="command-chip"><div class="cmd">/simplify</div><div class="desc">Reduce complexity, tests must pass</div></div>
+    <div class="command-chip"><div class="cmd">/preflight</div><div class="desc">7-step pre-implementation check</div></div>
+    <div class="command-chip"><div class="cmd">/commit</div><div class="desc">Scope-creep audit + conventional commit</div></div>
+    <div class="command-chip"><div class="cmd">/push</div><div class="desc">Quality gate + PR creation</div></div>
+    <div class="command-chip"><div class="cmd">/release</div><div class="desc">Full release with monitoring</div></div>
+    <div class="command-chip"><div class="cmd">/audit</div><div class="desc">Spec drift detection</div></div>
+    <div class="command-chip"><div class="cmd">/performance</div><div class="desc">Core Web Vitals audit</div></div>
+    <div class="command-chip"><div class="cmd">/security-check</div><div class="desc">OWASP + secrets + headers</div></div>
+    <div class="command-chip"><div class="cmd">/compliance-check</div><div class="desc">GDPR/HIPAA/SOC2 gap analysis</div></div>
+    <div class="command-chip"><div class="cmd">/ui-review</div><div class="desc">10-section design checklist</div></div>
+    <div class="command-chip"><div class="cmd">/diagram</div><div class="desc">Generate arch/API/DB diagrams</div></div>
+    <div class="command-chip"><div class="cmd">/catchup</div><div class="desc">Full project briefing for new sessions</div></div>
+    <div class="command-chip"><div class="cmd">/migrate</div><div class="desc">Safe DB migration workflow</div></div>
+    <div class="command-chip"><div class="cmd">/compound</div><div class="desc">Extract session learnings into rules</div></div>
+    <div class="command-chip"><div class="cmd">/debt</div><div class="desc">Tech debt review + prioritization</div></div>
+    <div class="command-chip"><div class="cmd">/worktree</div><div class="desc">Parallel agent isolation setup</div></div>
+    <div class="command-chip"><div class="cmd">/update-spec</div><div class="desc">Keep SPEC.md in sync</div></div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="section-label">Get Started</div>
+  <div class="section-title">Up in 2 minutes</div>
+  <div class="section-sub">Copy, configure, and start building with full discipline from day one.</div>
+  <div class="install-block">
+    <span class="install-line"><span class="comment"># 1. Clone the boilerplate</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">git clone https://github.com/SrikanthVemulapally/ai-native-boilerplate my-project</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">cd my-project</span></span>
+    <span class="install-line"> </span>
+    <span class="install-line"><span class="comment"># 2. Configure your project</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">cp app.config.json.example app.config.json</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd"># Edit app.config.json — set your app name, stack, features, compliance</span></span>
+    <span class="install-line"> </span>
+    <span class="install-line"><span class="comment"># 3. Generate your lean CLAUDE.md</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">node scripts/generate-claude-md.js</span></span>
+    <span class="install-line"> </span>
+    <span class="install-line"><span class="comment"># 4. Set up git hooks</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">git config core.hooksPath .githooks && chmod +x .githooks/*</span></span>
+    <span class="install-line"> </span>
+    <span class="install-line"><span class="comment"># 5. Open in Claude Code and run /setup</span></span>
+    <span class="install-line"><span class="prompt">$</span> <span class="cmd">claude .</span></span>
+  </div>
+</section>
+
+<section>
+  <div class="cta-section">
+    <h2>Stop letting AI agents drift.<br/>Ship disciplined code.</h2>
+    <p>Free, open source, MIT licensed. Takes 2 minutes to set up.</p>
+    <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate" class="btn-primary" target="_blank">⭐ Star on GitHub — It's Free</a>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://github.com/SrikanthVemulapally" target="_blank">Srikanth Vemulapally</a> · MIT License · <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate" target="_blank">GitHub</a></p>
+</footer>
+
+</body>
+</html>

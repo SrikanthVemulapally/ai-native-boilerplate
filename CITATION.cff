@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this boilerplate in your project or research, please cite it."
+type: software
+title: "AI-Native Boilerplate"
+abstract: "A production-grade boilerplate that keeps AI coding agents disciplined, consistent, and on-track from first commit to production. 170+ rules across 6 layers: core discipline, stack, design system, features, compliance, and custom overrides."
+authors:
+  - family-names: Vemulapally
+    given-names: Srikanth
+    orcid: ""
+repository-code: "https://github.com/SrikanthVemulapally/ai-native-boilerplate"
+url: "https://srikanthvemulapally.github.io/ai-native-boilerplate"
+license: MIT
+version: "1.0.0"
+date-released: "2026-09-02"
+keywords:
+  - claude-code
+  - ai-coding
+  - boilerplate
+  - design-system
+  - developer-tools
+  - saas
+  - tauri
+  - cloudflare
+  - typescript
+  - ai-agents

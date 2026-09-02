@@ -1,0 +1,34 @@
+{
+  "minimal": true,
+  "project": {
+    "name": "Minimal Project",
+    "description": "Lightweight project — fewer rules, less overhead"
+  },
+  "profile": "minimal",
+  "stack": {
+    "frontend": "tanstack-start",
+    "backend": "cloudflare-workers",
+    "database": "cloudflare-d1",
+    "orm": "drizzle"
+  },
+  "features": {
+    "designSystem": true,
+    "auth": false,
+    "payments": false,
+    "seo": false,
+    "auto-update": false,
+    "i18n": false,
+    "analytics": false,
+    "ai": false,
+    "email": false
+  },
+  "discipline": {
+    "require_tests": true,
+    "require_docs": true,
+    "require_types": true,
+    "require_lint": true,
+    "require_conventional_commits": true,
+    "spec_drift_audit": false,
+    "multi_agent": false
+  }
+}

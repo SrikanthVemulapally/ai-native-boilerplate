@@ -1,0 +1,46 @@
+{
+  "_description": "Full-stack: web app + desktop agent + admin + API. Maximum feature set.",
+  "_use_when": "Building a comprehensive platform with web, desktop, and admin components.",
+  "stack": {
+    "frontend": "tanstack-start",
+    "backend": "cloudflare-workers",
+    "database": "cloudflare-d1",
+    "storage": "cloudflare-r2",
+    "orm": "drizzle",
+    "styling": "tailwindcss",
+    "testing": "vitest"
+  },
+  "features": {
+    "payments": true,
+    "auth": true,
+    "seo": true,
+    "i18n": true,
+    "analytics": true,
+    "auto-update": true,
+    "ai": true,
+    "realtime": true,
+    "email": true,
+    "file-uploads": true,
+    "designSystem": true
+  },
+  "designSystem": {
+    "headingFont": "inter",
+    "bodyFont": "inter",
+    "monoFont": "jetbrains-mono",
+    "baseColor": "neutral",
+    "darkMode": "system"
+  },
+  "variants": {
+    "agent": {
+      "enabled": true,
+      "framework": "tauri",
+      "auto-update": {
+        "provider": "github-releases",
+        "channel": "stable",
+        "signature": true
+      }
+    },
+    "admin": { "enabled": true, "path": "/admin" },
+    "api":   { "enabled": true, "versioning": true, "openapi": true }
+  }
+}

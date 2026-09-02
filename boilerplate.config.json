@@ -1,0 +1,123 @@
+{
+  "$schema": "./boilerplate.config.schema.json",
+
+  "project": {
+    "name": "YOUR_PROJECT_NAME",
+    "description": "One line description of what this project does",
+    "version": "0.1.0",
+    "repo": "https://github.com/your-org/your-repo"
+  },
+
+  "profile": "web-only",
+
+  "gitStrategy": "trunk",
+
+  "stack": {
+    "frontend": "tanstack-start",
+    "backend": "cloudflare-workers",
+    "database": "cloudflare-d1",
+    "storage": "cloudflare-r2",
+    "orm": "drizzle",
+    "styling": "tailwindcss",
+    "testing": "vitest"
+  },
+
+  "features": {
+    "payments": true,
+    "auth": true,
+    "seo": true,
+    "i18n": false,
+    "timezone": false,
+    "analytics": false,
+    "auto-update": false,
+    "ai": false,
+    "realtime": false,
+    "email": false,
+    "file-uploads": false,
+    "error-tracking": true,
+    "openapi": false,
+    "designSystem": true
+  },
+
+  "designSystem": {
+    "headingFont": "inter",
+    "bodyFont": "inter",
+    "monoFont": "jetbrains-mono",
+    "baseColor": "neutral",
+    "primaryColor": "",
+    "radius": 0.625,
+    "darkMode": "system"
+  },
+
+  "variants": {
+    "agent": {
+      "enabled": false,
+      "framework": "tauri",
+      "auto-update": {
+        "provider": "github-releases",
+        "channel": "stable",
+        "signature": true
+      }
+    },
+    "admin": {
+      "enabled": false,
+      "path": "/admin"
+    },
+    "api": {
+      "enabled": true,
+      "versioning": true,
+      "openapi": true
+    }
+  },
+
+  "payments": {
+    "provider": "stripe",
+    "mode": "subscription",
+    "webhooks": true,
+    "portal": true,
+    "trial_days": 14
+  },
+
+  "auth": {
+    "provider": "custom-jwt",
+    "strategies": ["email-password", "magic-link"],
+    "mfa": false,
+    "rbac": true
+  },
+
+  "ai": {
+    "provider": "anthropic",
+    "model": "claude-opus-4-5",
+    "evals": true,
+    "streaming": true
+  },
+
+  "compliance": {
+    "gdpr": true,
+    "dpdpa": true,
+    "hipaa": false,
+    "soc2": false,
+    "pci": true,
+    "eu_ai_act": false,
+    "ccpa": false
+  },
+  "discipline": {
+    "enforce_spec_on_commit": true,
+    "enforce_arch_on_structural_change": true,
+    "enforce_conventional_commits": true,
+    "enforce_tests_before_push": true,
+    "enforce_mdd_for_features": true,
+    "block_direct_main_push": true,
+    "require_decision_log_for_arch_changes": true,
+    "multi_agent": false,
+    "worktrees": false,
+    "token_budget_per_session": 100000
+  },
+
+  "extend": {
+    "extra_rule_files": [],
+    "extra_hook_files": [],
+    "extra_command_files": [],
+    "extra_agent_files": []
+  }
+}

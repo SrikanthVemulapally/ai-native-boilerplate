@@ -1,0 +1,32 @@
+# GitHub Topics for SEO
+# These should be set on the GitHub repo via: gh repo edit --add-topic ...
+# Copy-paste from here when setting topics
+
+ai-native
+claude-code
+boilerplate
+ai-coding
+developer-tools
+coding-discipline
+design-system
+saas-boilerplate
+starter-kit
+shadcn-ui
+tailwindcss
+tauri
+cloudflare-workers
+stripe
+gdpr
+compliance
+accessibility
+wcag
+conventional-commits
+markdown-driven-development
+mdd
+claude-hooks
+cursor
+windsurf
+copilot
+ai-agents
+llm
+token-efficiency

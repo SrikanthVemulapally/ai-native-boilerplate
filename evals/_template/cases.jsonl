@@ -1,0 +1,3 @@
+{"input": "Example input 1", "expected": "contains key point", "category": "default", "type": "llm-judge"}
+{"input": "Example input 2", "expected": "exact match expected", "category": "exact", "type": "exact"}
+{"input": "Example input 3", "required": ["required string 1", "required string 2"], "forbidden": ["forbidden string"], "category": "constraint", "type": "constraint"}

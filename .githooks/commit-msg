@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# .githooks/commit-msg
+# Enforces conventional commit format.
+# Install: git config core.hooksPath .githooks
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Allow merge commits
+if echo "$COMMIT_MSG" | grep -qE "^Merge "; then
+  exit 0
+fi
+
+# Conventional commit pattern
+PATTERN="^(feat|fix|docs|refactor|test|chore|ci|perf|security|style|build|revert)(\([a-z0-9\-]+\))?: .{1,72}$"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+  echo "❌ Invalid commit message format."
+  echo ""
+  echo "Required format: type(scope): description"
+  echo "Example: feat(auth): add OAuth2 login with Google"
+  echo ""
+  echo "Valid types: feat | fix | docs | refactor | test | chore | ci | perf | security | style | build | revert"
+  echo "Scope: optional, lowercase, kebab-case"
+  echo "Description: imperative mood, no period, under 72 chars"
+  echo ""
+  echo "Your message: $COMMIT_MSG"
+  exit 1
+fi
+
+exit 0

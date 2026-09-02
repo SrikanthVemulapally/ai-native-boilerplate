@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# .githooks/pre-push
+# Runs before every push. Ensures tests pass before code leaves this machine.
+# Install: git config core.hooksPath .githooks
+
+set -e
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Block direct pushes to main
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+  echo "❌ Direct push to '$BRANCH' is not allowed."
+  echo "   Create a feature branch and open a PR."
+  exit 1
+fi
+
+echo "🧪 Running tests before push..."
+
+if command -v pnpm &>/dev/null; then
+  pnpm test:unit 2>&1
+  if [ $? -ne 0 ]; then
+    echo "❌ Unit tests failed. Fix them before pushing."
+    exit 1
+  fi
+fi
+
+echo "✅ Tests passed. Pushing..."
+exit 0

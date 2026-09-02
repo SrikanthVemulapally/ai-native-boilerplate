@@ -1,0 +1,31 @@
+{
+  "_description": "Headless API / backend service. Cloudflare Workers + D1. No frontend.",
+  "_use_when": "Building a pure API, microservice, or backend that other apps consume.",
+  "stack": {
+    "frontend": "none",
+    "backend": "cloudflare-workers",
+    "database": "cloudflare-d1",
+    "storage": "cloudflare-r2",
+    "orm": "drizzle",
+    "styling": "none",
+    "testing": "vitest"
+  },
+  "features": {
+    "payments": false,
+    "auth": true,
+    "seo": false,
+    "i18n": false,
+    "analytics": false,
+    "auto-update": false,
+    "ai": false,
+    "realtime": false,
+    "email": false,
+    "file-uploads": false,
+    "designSystem": false
+  },
+  "variants": {
+    "agent": { "enabled": false },
+    "admin": { "enabled": false },
+    "api":   { "enabled": true, "versioning": true, "openapi": true }
+  }
+}

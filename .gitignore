@@ -1,0 +1,49 @@
+# Environment — NEVER COMMIT
+.env
+.env.local
+.env.production
+.env.staging
+.env.test
+*.local
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+.next/
+.turbo/
+.wrangler/
+out/
+
+# Cloudflare
+.wrangler/
+
+# Tauri (desktop agent)
+src-tauri/target/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+
+# MDD audits (regenerated on demand)
+.mdd/audits/
+
+# Claude session temp files
+.claude/.stop_hook_active

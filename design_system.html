@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[App Name] — Design System</title>
+<style>
+  /* ========================================
+     DESIGN TOKENS — FILL THESE IN
+     ======================================== */
+  :root {
+    /* Brand Colors */
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+    --color-primary-light: #dbeafe;
+
+    /* Surface Colors */
+    --color-surface: #ffffff;
+    --color-surface-raised: #f8fafc;
+    --color-border: #e2e8f0;
+
+    /* Text Colors */
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #64748b;
+    --color-text-inverse: #ffffff;
+
+    /* Semantic Colors */
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-error: #dc2626;
+    --color-info: #0ea5e9;
+
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Spacing (8px grid) */
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+    --space-12: 48px; --space-16: 64px; --space-24: 96px;
+
+    /* Borders */
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+    --radius-xl: 16px; --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  /* ======================================== */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--color-surface); color: var(--color-text-primary); line-height: 1.6; padding: var(--space-8); }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: var(--space-2); }
+  h2 { font-size: 1.25rem; font-weight: 600; margin: var(--space-8) 0 var(--space-4); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+  .section { margin-bottom: var(--space-12); padding-bottom: var(--space-8); border-bottom: 1px solid var(--color-border); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-start; }
+  .label { font-size: 0.75rem; color: var(--color-text-secondary); margin-top: var(--space-2); text-align: center; }
+
+  /* Color Swatches */
+  .swatch { width: 80px; }
+  .swatch-color { width: 80px; height: 56px; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: var(--space-2) var(--space-5); border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500; cursor: pointer; border: none; transition: all 150ms ease-out; }
+  .btn-primary { background: var(--color-primary); color: var(--color-text-inverse); }
+  .btn-primary:hover { background: var(--color-primary-dark); }
+  .btn-secondary { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+  .btn-secondary:hover { background: var(--color-primary-light); }
+  .btn-destructive { background: var(--color-error); color: var(--color-text-inverse); }
+  .btn-ghost { background: transparent; color: var(--color-text-primary); }
+  .btn-ghost:hover { background: var(--color-surface-raised); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-sm { min-height: 32px; padding: var(--space-1) var(--space-3); font-size: 0.75rem; }
+  .btn-lg { min-height: 52px; padding: var(--space-3) var(--space-8); font-size: 1rem; }
+
+  /* Inputs */
+  .input-group { display: flex; flex-direction: column; gap: var(--space-1); min-width: 240px; }
+  .input-label { font-size: 0.875rem; font-weight: 500; color: var(--color-text-primary); }
+  .input { height: 44px; padding: 0 var(--space-3); border: 1.5px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-text-primary); background: var(--color-surface); transition: border-color 150ms; }
+  .input:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; border-color: var(--color-primary); }
+  .input.error { border-color: var(--color-error); }
+  .input-error { font-size: 0.75rem; color: var(--color-error); }
+  .input-hint { font-size: 0.75rem; color: var(--color-text-secondary); }
+
+  /* Cards */
+  .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-sm); max-width: 320px; }
+  .card-title { font-size: 1rem; font-weight: 600; margin-bottom: var(--space-2); }
+  .card-body { font-size: 0.875rem; color: var(--color-text-secondary); }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; padding: 2px var(--space-2); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500; }
+  .badge-success { background: #dcfce7; color: #15803d; }
+  .badge-warning { background: #fef9c3; color: #a16207; }
+  .badge-error { background: #fee2e2; color: #b91c1c; }
+  .badge-info { background: #e0f2fe; color: #0369a1; }
+  .badge-default { background: var(--color-surface-raised); color: var(--color-text-secondary); border: 1px solid var(--color-border); }
+
+  /* Typography specimens */
+  .type-specimen { margin-bottom: var(--space-3); }
+</style>
+</head>
+<body>
+
+<h1>[App Name] Design System</h1>
+<p style="color: var(--color-text-secondary); margin-bottom: var(--space-8)">
+  Visual reference for AI agents and developers. Update whenever a new component is added.
+</p>
+
+<!-- COLOR PALETTE -->
+<div class="section">
+  <h2>Color Palette</h2>
+  <div class="row">
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-primary)"></div>
+      <div class="label">Primary</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-primary-dark)"></div>
+      <div class="label">Primary Dark</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-primary-light)"></div>
+      <div class="label">Primary Light</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-surface-raised); border: 1px solid var(--color-border)"></div>
+      <div class="label">Surface Raised</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-border)"></div>
+      <div class="label">Border</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-text-primary)"></div>
+      <div class="label">Text Primary</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-text-secondary)"></div>
+      <div class="label">Text Secondary</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-success)"></div>
+      <div class="label">Success</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-warning)"></div>
+      <div class="label">Warning</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--color-error)"></div>
+      <div class="label">Error</div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section">
+  <h2>Typography</h2>
+  <div class="type-specimen" style="font-size: 3rem; font-weight: 700; line-height: 1.2">Heading 1 — 48px Bold</div>
+  <div class="type-specimen" style="font-size: 2.25rem; font-weight: 700; line-height: 1.2">Heading 2 — 36px Bold</div>
+  <div class="type-specimen" style="font-size: 1.5rem; font-weight: 600; line-height: 1.2">Heading 3 — 24px Semibold</div>
+  <div class="type-specimen" style="font-size: 1.25rem; font-weight: 600; line-height: 1.2">Heading 4 — 20px Semibold</div>
+  <div class="type-specimen" style="font-size: 1.125rem">Body Large — 18px Regular. Used for lead paragraphs.</div>
+  <div class="type-specimen" style="font-size: 1rem">Body — 16px Regular. Default body text for the application.</div>
+  <div class="type-specimen" style="font-size: 0.875rem; color: var(--color-text-secondary)">Body Small — 14px Regular. Labels, captions, secondary content.</div>
+  <div class="type-specimen" style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-secondary)">LABEL — 12px Medium Uppercase</div>
+  <div class="type-specimen" style="font-family: var(--font-mono); font-size: 0.875rem; background: var(--color-surface-raised); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--color-border)">Code — 14px Monospace</div>
+</div>
+
+<!-- BUTTONS -->
+<div class="section">
+  <h2>Buttons</h2>
+  <div class="row" style="align-items: center">
+    <div>
+      <button class="btn btn-primary">Primary</button>
+      <div class="label">Primary</div>
+    </div>
+    <div>
+      <button class="btn btn-secondary">Secondary</button>
+      <div class="label">Secondary</div>
+    </div>
+    <div>
+      <button class="btn btn-destructive">Delete</button>
+      <div class="label">Destructive</div>
+    </div>
+    <div>
+      <button class="btn btn-ghost">Ghost</button>
+      <div class="label">Ghost</div>
+    </div>
+    <div>
+      <button class="btn btn-primary" disabled>Disabled</button>
+      <div class="label">Disabled</div>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-primary">Small</button>
+      <div class="label">Small</div>
+    </div>
+    <div>
+      <button class="btn btn-lg btn-primary">Large</button>
+      <div class="label">Large</div>
+    </div>
+  </div>
+</div>
+
+<!-- INPUTS -->
+<div class="section">
+  <h2>Form Controls</h2>
+  <div class="row">
+    <div class="input-group">
+      <label class="input-label">Email address</label>
+      <input class="input" type="email" placeholder="you@example.com">
+      <span class="input-hint">We'll never share your email.</span>
+    </div>
+    <div class="input-group">
+      <label class="input-label">Email address *</label>
+      <input class="input error" type="email" value="invalid">
+      <span class="input-error">Please enter a valid email address.</span>
+    </div>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="section">
+  <h2>Cards</h2>
+  <div class="row">
+    <div class="card">
+      <div class="card-title">Card Title</div>
+      <div class="card-body">Card body text goes here. Describes the content or action associated with this card.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BADGES -->
+<div class="section">
+  <h2>Badges</h2>
+  <div class="row" style="align-items: center">
+    <div><span class="badge badge-success">Active</span><div class="label">Success</div></div>
+    <div><span class="badge badge-warning">Pending</span><div class="label">Warning</div></div>
+    <div><span class="badge badge-error">Failed</span><div class="label">Error</div></div>
+    <div><span class="badge badge-info">New</span><div class="label">Info</div></div>
+    <div><span class="badge badge-default">Draft</span><div class="label">Default</div></div>
+  </div>
+</div>
+
+<!-- CUSTOM COMPONENTS — Add new components below -->
+<div class="section">
+  <h2>Custom Components</h2>
+  <p style="color: var(--color-text-secondary); font-size: 0.875rem">
+    Add new project-specific components here as they are built.
+    Every component built in code must have a visual specimen here.
+  </p>
+</div>
+
+</body>
+</html>

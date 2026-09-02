@@ -1,0 +1,37 @@
+{
+  "name": "your-app-name",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev":        "pnpm -r --parallel dev",
+    "build":      "pnpm -r build",
+    "typecheck":  "pnpm -r typecheck",
+    "lint":       "pnpm -r lint",
+    "lint:fix":   "pnpm -r lint:fix",
+    "format":     "prettier --write .",
+    "test":       "pnpm -r test",
+    "test:unit":  "pnpm -r test:unit",
+    "test:watch": "pnpm -r test:watch",
+    "setup":      "node scripts/generate-claude-md.js",
+    "db:generate":"pnpm --filter @workspace/db db:generate",
+    "db:migrate": "pnpm --filter @workspace/db db:migrate",
+    "db:studio":  "pnpm --filter @workspace/db db:studio",
+    "deploy":     "pnpm -r deploy",
+    "release":    "pnpm version patch && git push --follow-tags",
+    "i18n:check":       "i18next-cli check --config i18next-parser.config.js",
+    "i18n:extract":     "i18next-cli extract --config i18next-parser.config.js",
+    "i18n:bundle-size": "node scripts/check-i18n-bundle-size.js",
+    "i18n:pseudo":      "node scripts/generate-pseudo-locale.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "prettier":       "^3.3.0",
+    "typescript":     "^5.6.0",
+    "turbo":          "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

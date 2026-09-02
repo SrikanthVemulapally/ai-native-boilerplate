@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI-Native Boilerplate Config",
+  "description": "Master configuration for ai-native-boilerplate. Edit this to customize your project. Run /setup after changes.",
+  "type": "object",
+  "required": ["project", "profile", "stack", "features"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "description": "Project identity",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "version": { "type": "string" },
+        "repo": { "type": "string", "format": "uri" }
+      }
+    },
+
+    "minimal": {
+      "type": "boolean",
+      "default": false,
+      "description": "Minimal mode: loads only essential rules (4 core + 3 design). ~60% token reduction."
+    },
+
+    "profile": {
+      "type": "string",
+      "enum": ["web-only", "agent-web", "api-only", "full-stack", "minimal"],
+      "description": "Base profile. Activates a preset bundle of stack + features. Override individually via stack/features below.",
+      "default": "web-only"
+    },
+
+    "monorepo": {
+      "type": "boolean",
+      "default": false,
+      "description": "Loads monorepo workspace rules (pnpm workspaces, package boundaries, build order)."
+    },
+
+    "stack": {
+      "type": "object",
+      "description": "Technology stack. Controls which stack rule file is loaded into CLAUDE.md.",
+      "properties": {
+        "frontend": {
+          "type": "string",
+          "enum": ["tanstack-start", "nextjs", "remix", "sveltekit", "nuxt", "none"],
+          "default": "tanstack-start"
+        },
+        "backend": {
+          "type": "string",
+          "enum": ["cloudflare-workers", "nodejs-express", "bun-hono", "fastapi", "none"],
+          "default": "cloudflare-workers"
+        },
+        "database": {
+          "type": "string",
+          "enum": ["cloudflare-d1", "postgres", "mysql", "sqlite", "mongodb", "none"],
+          "default": "cloudflare-d1"
+        },
+        "storage": {
+          "type": "string",
+          "enum": ["cloudflare-r2", "s3", "gcs", "none"],
+          "default": "cloudflare-r2"
+        },
+        "orm": {
+          "type": "string",
+          "enum": ["drizzle", "prisma", "typeorm", "mongoose", "none"],
+          "default": "drizzle"
+        },
+        "styling": {
+          "type": "string",
+          "enum": ["tailwindcss", "css-modules", "styled-components", "none"],
+          "default": "tailwindcss"
+        },
+        "testing": {
+          "type": "string",
+          "enum": ["vitest", "jest", "pytest", "none"],
+          "default": "vitest"
+        }
+      }
+    },
+
+    "features": {
+      "type": "object",
+      "description": "Feature flags. Each true flag loads the corresponding rule file into CLAUDE.md.",
+      "properties": {
+        "payments":     { "type": "boolean", "default": false },
+        "auth":         { "type": "boolean", "default": true },
+        "seo":          { "type": "boolean", "default": false },
+        "i18n":         { "type": "boolean", "default": false },
+        "analytics":    { "type": "boolean", "default": false },
+        "auto-update":  { "type": "boolean", "default": false, "description": "REQUIRED when profile=agent-web" },
+        "ai":           { "type": "boolean", "default": false },
+        "realtime":     { "type": "boolean", "default": false },
+        "email":        { "type": "boolean", "default": false },
+        "file-uploads": { "type": "boolean", "default": false },
+        "designSystem": { "type": "boolean", "default": true, "description": "Loads full UI/UX design rules: tokens, typography, color, components, page types, states, animation, accessibility" }
+      }
+    },
+
+    "designSystem": {
+      "type": "object",
+      "description": "Design system configuration. Only used when features.designSystem is true.",
+      "properties": {
+        "headingFont": {
+          "type": "string",
+          "enum": ["inter", "plus-jakarta-sans", "space-grotesk", "outfit", "fraunces", "dm-sans", "geist"],
+          "default": "inter",
+          "description": "Heading font. 'inter' means same as body (one-font system)."
+        },
+        "bodyFont": {
+          "type": "string",
+          "enum": ["inter", "source-sans-pro", "dm-sans", "ibm-plex-sans", "noto-sans"],
+          "default": "inter"
+        },
+        "monoFont": {
+          "type": "string",
+          "enum": ["jetbrains-mono", "geist-mono", "fira-code", "ibm-plex-mono"],
+          "default": "jetbrains-mono"
+        },
+        "baseColor": {
+          "type": "string",
+          "enum": ["neutral", "stone", "zinc", "mauve", "olive", "mist", "taupe"],
+          "default": "neutral",
+          "description": "shadcn/ui base color scheme"
+        },
+        "primaryColor": {
+          "type": "string",
+          "description": "Custom primary color in OKLCH format, e.g. 'oklch(0.488 0.243 264)' for indigo. Overrides --primary token."
+        },
+        "radius": {
+          "type": "number",
+          "default": 0.625,
+          "description": "Base border radius in rem (0.625rem = 10px = shadcn default)"
+        },
+        "darkMode": {
+          "type": "string",
+          "enum": ["system", "light", "dark"],
+          "default": "system"
+        }
+      }
+    },
+
+    "variants": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "framework": { "type": "string", "enum": ["tauri", "electron", "none"] },
+            "auto-update": {
+              "type": "object",
+              "properties": {
+                "provider": { "type": "string", "enum": ["github-releases", "custom-server", "s3"] },
+                "channel": { "type": "string", "enum": ["stable", "beta", "nightly"] },
+                "signature": { "type": "boolean", "default": true }
+              }
+            }
+          }
+        },
+        "admin": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "path": { "type": "string", "default": "/admin" }
+          }
+        },
+        "api": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": true },
+            "versioning": { "type": "boolean", "default": true },
+            "openapi": { "type": "boolean", "default": true }
+          }
+        }
+      }
+    },
+
+    "gitStrategy": {
+      "type": "string",
+      "enum": ["trunk", "gitflow"],
+      "default": "trunk",
+      "description": "Branch strategy. trunk = branch from main, merge to main, short-lived branches, feature flags. gitflow = feature/develop, release/main+develop, hotfix/main+develop."
+    },
+
+    "discipline": {
+      "type": "object",
+      "description": "Enforcement settings. These control hook behavior. Core discipline cannot be disabled.",
+      "properties": {
+        "enforce_spec_on_commit":             { "type": "boolean", "default": true },
+        "enforce_arch_on_structural_change":  { "type": "boolean", "default": true },
+        "enforce_conventional_commits":       { "type": "boolean", "default": true },
+        "enforce_tests_before_push":          { "type": "boolean", "default": true },
+        "enforce_mdd_for_features":           { "type": "boolean", "default": true },
+        "block_direct_main_push":             { "type": "boolean", "default": true },
+        "require_decision_log_for_arch_changes": { "type": "boolean", "default": true },
+        "multi_agent":                          { "type": "boolean", "default": false, "description": "Loads multi-agent coordination rules for parallel AI work" },
+        "worktrees":                            { "type": "boolean", "default": false, "description": "Loads git worktree rules for parallel agent isolation. Requires multi_agent: true." },
+        "token_budget_per_session":           { "type": "number", "default": 100000 }
+      }
+    },
+
+    "extend": {
+      "type": "object",
+      "description": "Add custom rule files, hooks, commands, agents. Paths relative to .claude/.",
+      "properties": {
+        "extra_rule_files":    { "type": "array", "items": { "type": "string" } },
+        "extra_hook_files":    { "type": "array", "items": { "type": "string" } },
+        "extra_command_files": { "type": "array", "items": { "type": "string" } },
+        "extra_agent_files":   { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

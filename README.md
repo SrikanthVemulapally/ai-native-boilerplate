@@ -284,5 +284,5 @@ MIT — use it, fork it, sell it, build your empire with it.
 </p>
 
 <p align="center">
-  Built for builders who take AI-native coding seriously.
+  Built by <a href="https://srikanthvemulapally.com">Srikanth Vemulapally</a> · for builders who take AI-native coding seriously.
 </p>

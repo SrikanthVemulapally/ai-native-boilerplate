@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "App Configuration",
+  "description": "Project-level configuration: app identity, branding, providers, environments, features, social meta. Read by Claude during scaffolding and referenced throughout development.",
+  "type": "object",
+  "required": ["app", "brand", "providers"],
+  "properties": {
+    "app": {
+      "type": "object",
+      "description": "Core app identity — used in meta tags, PWA manifest, emails, legal pages",
+      "required": ["name", "shortName", "description", "url"],
+      "properties": {
+        "name": { "type": "string", "description": "Full display name. Used in <title>, emails, legal pages." },
+        "shortName": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$", "description": "Lowercase kebab-case. Used for package names, env prefixes, DB prefixes." },
+        "description": { "type": "string", "maxLength": 160, "description": "For meta description and OG tags. Keep under 160 chars." },
+        "tagline": { "type": "string", "description": "Marketing one-liner for hero section." },
+        "url": { "type": "string", "format": "uri", "description": "Production URL. No trailing slash." },
+        "apiUrl": { "type": "string", "format": "uri", "description": "Production API URL." },
+        "docsUrl": { "type": "string", "format": "uri", "description": "Documentation URL." },
+        "locale": { "type": "string", "description": "Default locale (BCP 47). e.g. 'en', 'en-US', 'ar', 'ja'." },
+        "timezone": { "type": "string", "description": "Default IANA timezone. e.g. 'UTC', 'Asia/Dubai', 'America/New_York'." },
+        "year": { "type": "integer", "description": "Founding year for copyright notices." }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "description": "Visual identity — colors, logo, icons",
+      "properties": {
+        "primaryColor": { "type": "string", "description": "OKLCH color. Leave empty to use stack default (neutral)." },
+        "accentColor": { "type": "string", "description": "OKLCH color for CTAs and highlights." },
+        "logoPath": { "type": "string", "description": "Workspace-relative path to SVG logo." },
+        "faviconPath": { "type": "string", "description": "Path to .ico favicon." },
+        "ogImagePath": { "type": "string", "description": "Path to 1200×630 Open Graph image." },
+        "appleTouchIconPath": { "type": "string", "description": "Path to 180×180 Apple touch icon." },
+        "manifestPath": { "type": "string", "description": "Path to PWA manifest.json." }
+      }
+    },
+    "company": {
+      "type": "object",
+      "description": "Company/contact info for legal pages, emails, social links",
+      "properties": {
+        "legalName": { "type": "string", "description": "Legal entity name for copyright, terms, privacy." },
+        "contactEmail": { "type": "string", "format": "email" },
+        "noreplyEmail": { "type": "string", "format": "email" },
+        "supportUrl": { "type": "string", "format": "uri" },
+        "twitter": { "type": "string", "description": "Handle with @, e.g. '@myapp'." },
+        "github": { "type": "string", "description": "GitHub org or username." },
+        "linkedin": { "type": "string", "description": "LinkedIn company slug." },
+        "discord": { "type": "string", "format": "uri", "description": "Discord invite URL." }
+      }
+    },
+    "legal": {
+      "type": "object",
+      "description": "Legal page URLs and compliance contact",
+      "properties": {
+        "termsUrl": { "type": "string", "description": "Terms of service URL (relative or absolute)." },
+        "privacyUrl": { "type": "string" },
+        "cookiePolicyUrl": { "type": "string" },
+        "gdprContactEmail": { "type": "string", "format": "email", "description": "DPO or GDPR contact." },
+        "dpaUrl": { "type": "string", "description": "Data Processing Agreement URL." }
+      }
+    },
+    "providers": {
+      "type": "object",
+      "description": "Third-party service provider selection. Claude uses these to scaffold the right integrations.",
+      "required": ["auth", "email", "payments", "errorTracking", "hosting"],
+      "properties": {
+        "auth": { "type": "string", "enum": ["authjs", "clerk", "supabase", "cognito", "none"], "description": "Auth provider. 'authjs' = Auth.js v5, 'clerk' = Clerk.com, 'supabase' = Supabase Auth." },
+        "email": { "type": "string", "enum": ["resend", "sendgrid", "ses", "postmark", "none"], "description": "Transactional email provider." },
+        "payments": { "type": "string", "enum": ["stripe", "lemonsqueezy", "paddle", "none"], "description": "Payment/subscription provider." },
+        "analytics": { "type": "string", "enum": ["posthog", "ga4", "plausible", "mixpanel", "none"] },
+        "errorTracking": { "type": "string", "enum": ["sentry", "bugsnag", "logflare", "none"] },
+        "hosting": { "type": "string", "enum": ["cloudflare", "vercel", "netlify", "self-hosted"] },
+        "database": { "type": "string", "enum": ["d1", "turso", "supabase", "neon", "planetscale", "self-hosted"] },
+        "storage": { "type": "string", "enum": ["r2", "s3", "supabase", "none"] },
+        "queue": { "type": "string", "enum": ["cloudflare-queues", "bullmq", "none"] },
+        "search": { "type": ["string", "null"], "enum": ["meilisearch", "typesense", "algolia", null] },
+        "featureFlags": { "type": ["string", "null"], "enum": ["posthog", "launchdarkly", "growthbook", null] }
+      }
+    },
+    "environments": {
+      "type": "object",
+      "description": "Per-environment URLs and settings. 12-Factor: config varies by environment, code does not.",
+      "properties": {
+        "development": { "$ref": "#/$defs/environment" },
+        "staging": { "$ref": "#/$defs/environment" },
+        "production": { "$ref": "#/$defs/environment" }
+      }
+    },
+    "features": {
+      "type": "object",
+      "description": "Feature toggles. These control which code paths and UI sections are scaffolded.",
+      "properties": {
+        "auth": { "type": "boolean", "default": true },
+        "payments": { "type": "boolean", "default": false },
+        "email": { "type": "boolean", "default": true },
+        "analytics": { "type": "boolean", "default": true },
+        "i18n": { "type": "boolean", "default": false },
+        "realtime": { "type": "boolean", "default": false },
+        "fileUploads": { "type": "boolean", "default": false },
+        "ai": { "type": "boolean", "default": false },
+        "seo": { "type": "boolean", "default": true },
+        "pwa": { "type": "boolean", "default": false }
+      }
+    },
+    "social": {
+      "type": "object",
+      "description": "Open Graph and Twitter Card meta. Auto-populated from app.url and brand.ogImagePath if not overridden.",
+      "properties": {
+        "openGraph": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "default": "website" },
+            "siteName": { "type": "string" },
+            "imageUrl": { "type": "string" },
+            "imageWidth": { "type": "integer", "default": 1200 },
+            "imageHeight": { "type": "integer", "default": 630 }
+          }
+        },
+        "twitter": {
+          "type": "object",
+          "properties": {
+            "card": { "type": "string", "enum": ["summary", "summary_large_image", "app", "player"], "default": "summary_large_image" },
+            "site": { "type": "string" },
+            "creator": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "environment": {
+      "type": "object",
+      "required": ["url", "apiUrl"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "apiUrl": { "type": "string", "format": "uri" },
+        "logLevel": { "type": "string", "enum": ["debug", "info", "warn", "error"], "default": "info" },
+        "analyticsEnabled": { "type": "boolean", "default": true },
+        "errorTrackingEnabled": { "type": "boolean", "default": true }
+      }
+    }
+  }
+}

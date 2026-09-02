@@ -52,6 +52,9 @@ That will:
 ## 🔒 Core Rules (Always Apply)
 
 @.claude/rules/core/principles.md
+@.claude/rules/core/architecture.md
+@.claude/rules/core/twelve-factor.md
+@.claude/rules/core/security-headers.md
 @.claude/rules/core/security.md
 @.claude/rules/core/git.md
 @.claude/rules/core/mdd.md

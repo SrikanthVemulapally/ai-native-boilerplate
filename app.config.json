@@ -1,0 +1,97 @@
+{
+  "$schema": "./app.config.schema.json",
+  "app": {
+    "name": "My App",
+    "shortName": "myapp",
+    "description": "A short, punchy description for meta tags and OG images.",
+    "tagline": "Build something people love.",
+    "url": "https://myapp.com",
+    "apiUrl": "https://api.myapp.com",
+    "docsUrl": "https://docs.myapp.com",
+    "locale": "en",
+    "timezone": "UTC",
+    "year": 2025
+  },
+  "brand": {
+    "primaryColor": "",
+    "accentColor": "",
+    "logoPath": "/assets/logo.svg",
+    "faviconPath": "/assets/favicon.ico",
+    "ogImagePath": "/assets/og-image.png",
+    "appleTouchIconPath": "/assets/apple-touch-icon.png",
+    "manifestPath": "/assets/manifest.json"
+  },
+  "company": {
+    "legalName": "My Company Inc.",
+    "contactEmail": "support@myapp.com",
+    "noreplyEmail": "noreply@myapp.com",
+    "supportUrl": "https://myapp.com/support",
+    "twitter": "@myapp",
+    "github": "mycompany",
+    "linkedin": "mycompany",
+    "discord": "https://discord.gg/xxxxx"
+  },
+  "legal": {
+    "termsUrl": "/terms",
+    "privacyUrl": "/privacy",
+    "cookiePolicyUrl": "/cookie-policy",
+    "gdprContactEmail": "dpo@myapp.com",
+    "dpaUrl": "/dpa"
+  },
+  "providers": {
+    "auth": "authjs",
+    "email": "resend",
+    "payments": "stripe",
+    "analytics": "posthog",
+    "errorTracking": "sentry",
+    "hosting": "cloudflare",
+    "database": "d1",
+    "storage": "r2",
+    "queue": "cloudflare-queues",
+    "search": null,
+    "featureFlags": null
+  },
+  "environments": {
+    "development": {
+      "url": "http://localhost:3000",
+      "apiUrl": "http://localhost:8787",
+      "logLevel": "debug"
+    },
+    "staging": {
+      "url": "https://staging.myapp.com",
+      "apiUrl": "https://api.staging.myapp.com",
+      "logLevel": "info"
+    },
+    "production": {
+      "url": "https://myapp.com",
+      "apiUrl": "https://api.myapp.com",
+      "logLevel": "warn"
+    }
+  },
+  "features": {
+    "auth": true,
+    "payments": false,
+    "email": true,
+    "analytics": true,
+    "i18n": false,
+    "realtime": false,
+    "fileUploads": false,
+    "ai": false,
+    "seo": true,
+    "pwa": false
+  },
+  "social": {
+    "openGraph": {
+      "type": "website",
+      "siteName": "My App",
+      "imageUrl": "/assets/og-image.png",
+      "imageWidth": 1200,
+      "imageHeight": 630
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@myapp",
+      "creator": "@myapp"
+    }
+  }
+}

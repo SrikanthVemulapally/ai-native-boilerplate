@@ -15,6 +15,7 @@
   <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate/forks"><img alt="GitHub Forks" src="https://img.shields.io/github/forks/SrikanthVemulapally/ai-native-boilerplate?style=for-the-badge&color=6366f1" /></a>
   <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-6366f1?style=for-the-badge" /></a>
   <a href="https://github.com/SrikanthVemulapally/ai-native-boilerplate/issues"><img alt="Issues" src="https://img.shields.io/github/issues/SrikanthVemulapally/ai-native-boilerplate?style=for-the-badge&color=6366f1" /></a>
+  <a href="https://buymeacoffee.com/srikanthve3"><img alt="Buy Me a Coffee" src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" /></a>
 </p>
 
 <p align="center">
